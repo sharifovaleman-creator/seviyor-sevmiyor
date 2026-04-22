@@ -1,22 +1,32 @@
-const messages = [
-   "seviyor ❤️",
-   "sevmiyor 💔",
-   "seviyor ❤️",
-   "sevmiyor 💔",
-   "seviyor ❤️",
-   "sevmiyor 💔"
-];
-
 function showText() {
    const text = document.getElementById("text");
+   const question = document.getElementById("questionInput").value;
+   const answersInput = document.getElementById("answersInput").value;
    
-   text.innerText = messages[Math.floor(Math.random() * messages.length)];
+   if (question.trim() === "" || answersInput.trim() === "") {
+      text.innerText = "Sual + cavablar yaz 😄";
+   } else {
+      const answers = answersInput.split(",");
+      
+      if (answers.length < 2) {
+         text.innerText = "Minimum 2 cavab yaz 😏";
+      } else {
+         const randomAnswer = answers[Math.floor(Math.random() * answers.length)].trim();
+         text.innerText =  randomAnswer;
+      }
+   }
    
    text.classList.remove("show");
    void text.offsetWidth;
    text.classList.add("show");
 }
-
+document.querySelectorAll(".inputs input").forEach(input => {
+   input.addEventListener("input", () => {
+      input.classList.remove("active");
+      void input.offsetWidth;
+      input.classList.add("active");
+   });
+});
 // petals setup
 function initPetals() {
    document.querySelectorAll(".petal").forEach(petal => {
